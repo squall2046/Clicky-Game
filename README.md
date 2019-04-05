@@ -1,7 +1,7 @@
 # Clicky-Game
 Minion Clicks is a memory game with React. Click on an image to earn points, but don't click on any more than once.
-![App Sample](/public/img/minion-video.gif)
 > Click  >>>**[Here](https://clickygame-iw.herokuapp.com/)**<<<  to check the game.
+![App Sample](/public/img/minion-video.gif)
 
 ## Technologies:
 - [x] Node/Express
