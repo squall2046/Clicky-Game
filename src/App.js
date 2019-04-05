@@ -4,6 +4,7 @@ import Wrapper from "./components/Wrapper";
 import Title from "./components/Title";
 import Footer from "./components/Footer";
 import Alert from "./components/Alert";
+import Guess from "./components/Guess";
 import minions from "./minions.json";
 
 // ======== shuffle way1 ========:
@@ -45,43 +46,61 @@ class App extends Component {
     score: 0,
     topScore: 0,
     clickedArr: [],
+    alert: false
   };
+
+  handleAlert = () => {
+    this.setState({
+      guess: false,
+      alert: false,
+      score: 0,
+      clickedArr: [],
+    });
+  }
+
 
   handleClick = id => {
     if (this.state.clickedArr.indexOf(id) === -1) {
 
       // question 1:
-      // this.state.clickedArr.push(id);
+      this.state.clickedArr.push(id);
       // const newArr = this.state.clickedArr.push(id);
 
       // question 3: why concat(id)? id is array?
       // this.setState({ clickedArr: this.state.clickedArr.concat(id) });
       // console.log(this.state.clickedArr)
 
-      this.setState({
-        score: this.state.score + 1,
+      this.setState(
+        {
+          score: this.state.score + 1,
+          guess: true
+        },
+        () => {
+          console.log(this.state.score)
+          // question2: why not update score in log and in top score?
+          // Please check react setState callback documentation.
+          if (this.state.score > this.state.topScore) {
+            this.setState({ topScore: this.state.score });
+          }
+          if (this.state.score === 12) {
+            alert("you win");
+            this.setState({
+              score: 0,
+              clickedArr: []
+            });
+          }
+        }
         // clickedArr: newArr
-      });
-      // question2: why not update score in log and in top score?
-      console.log(this.state.score);
-
-      if (this.state.score > this.state.topScore) {
-        this.setState({ topScore: this.state.score });
-      }
-      else if (this.state.score == 12) {
-        alert("you win");
-        this.setState({
-          score: 0,
-          clickedArr: []
-        });
-      }
+      );
     }
 
     else {
-      alert("you lose");
+      // alert("you lose");
       this.setState({
         score: 0,
-        clickedArr: []
+        clickedArr: [],
+        alert: true,
+        guess: false
       });
     }
 
@@ -138,10 +157,10 @@ class App extends Component {
           topScore={this.state.topScore}
         />
         {/* question 4 js in jsx? */}
-        {/* why not */}
-        {/* alert("hello") */}
 
-        {/* <Alert /> */}
+        {this.state.alert ? <Alert handleAlert={this.handleAlert} /> : console.log("no alert")}
+        {this.state.guess ? <Guess guessRight={this.guess} /> : console.log("incorrect")}
+
 
         {this.state.minions.map(minion => (
           <MinionCard
