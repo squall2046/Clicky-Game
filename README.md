@@ -22,6 +22,55 @@ Isaac Wu © 2019 All Rights Reserved
 ![App Sample](/public/img/minion2.png)
 
 
+## Reference
+
+Fisher Yates Shuffle Modern Algorithm Array Programming Tutorial
+
+```
+function shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+}
+```
+ES2015 (ES6) version
+```
+function shuffle(a) {
+    for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+    }
+    return a;
+}
+```
+Extend JavaScript by creating a shuffle method for the Array object
+```
+Array.prototype.shuffle = function(){
+    var i = this.length, j, temp;
+    while(--i > 0){
+        j = Math.floor(Math.random() * (i+1));
+        temp = this[j];
+        this[j] = this[i];
+        this[i] = temp;
+    }
+    return this;
+}
+var arr = ['A','B','C','D','E','F','G','H'];
+var result = arr.shuffle();
+document.write(result);
+```
+
+https://stackoverflow.com/questions/6274339/how-can-i-shuffle-an-array
+http://www.developphp.com/video/JavaScript/Fisher-Yates-Shuffle-Modern-Algorithm-Array-Programming-Tutorial
+
+
+## React
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
